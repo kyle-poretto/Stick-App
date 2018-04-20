@@ -1,6 +1,7 @@
 const initialState = {
   content: '',
-  tag: ''
+  tag: '',
+  likes: 0
 }
 
 export default (state = initialState, action) => {

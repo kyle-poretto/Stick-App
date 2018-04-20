@@ -16,8 +16,8 @@ class StickForm extends Component {
   handleOnSubmit = (event) => {
     event.preventDefault()
     this.props.createStick(this.props.sticksFormData)
-  }  
-
+  }
+  
    
   render(){
     const { content, tag} = this.props.sticksFormData

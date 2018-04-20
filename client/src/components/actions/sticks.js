@@ -10,7 +10,7 @@ const setSticks = sticks => {
 
 const addStick = stick => {
   return {
-    type: 'CREATE_SURFBOARD_SUCCESS',
+    type: 'CREATE_STICK_SUCCESS',
     stick
   }
 }
@@ -22,12 +22,24 @@ const dumpStick = stick => {
   }
 }
 
+const addLike = stick => {
+  return {
+    type: 'ADD_LIKE',
+    stick
+  }
+}
+
 //Async Actions
  export const fetchSticks = () => {
  return dispatch => {
     return fetch('http://localhost:3001/api/sticks')
     .then(response => response.json())
-    .then(sticks => dispatch(setSticks(sticks)))
+    .then(sticks => {
+      sticks.sort(function (a, b) {
+        return b.likes - a.likes;
+      })
+      dispatch(setSticks(sticks))}
+    )
     .catch(error => console.log(error))
   }
 }
@@ -46,6 +58,25 @@ export const createStick = stick => {
     .then(stick => {
       dispatch(addStick(stick))
       dispatch(resetStickForm())
+    })
+    .catch(error => console.log(error))
+  }
+} 
+
+export const likeStick = stick => {
+  return dispatch => {
+    return fetch(`http://localhost:3001/api/sticks/${stick.id}`, {
+      method: "PATCH",
+      headers: {  
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ stick: stick })
+    })
+    .then(response => 
+      response.json())
+    .then(stick => {
+      dispatch(addLike(stick))
     })
     .catch(error => console.log(error))
   }

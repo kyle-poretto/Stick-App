@@ -13,12 +13,15 @@ class AllStickContainer extends Component {
   }
 
     render(){
+      const filteredSticks = this.props.sticks.filter(stick => {
+          return stick > 60;
+        })
       return (
       <div>
         <h1>Sticks</h1>
         <StickForm />
         <div className="SticksContainer">
-            {this.props.sticks.map(stick => <StickCard key={stick.id} stick={stick} />)}
+            {filteredSticks.map(stick => <StickCard key={stick.id} stick={stick} />)}
         </div>
       </div>
       )

@@ -1,5 +1,6 @@
 import React from 'react';
 import '../containers/sticky.css'
+import Counter from './Counter'
 import { deleteStick } from '../actions/sticks';
 
 const StickCard = ({ stick }) => (
@@ -8,6 +9,7 @@ const StickCard = ({ stick }) => (
         <div className="content">{stick.content}</div>
           <div className="Tag">
             <h5>{stick.tag}</h5>
+            <Counter stick={stick} />
           </div>
     </div>
   </div> 
